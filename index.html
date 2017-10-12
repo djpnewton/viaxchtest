@@ -1,0 +1,624 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <div class="container">
+            <!-- Nav tabs -->
+
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#balance" aria-controls="balance" role="tab" data-toggle="tab">Balance</a></li>
+                    <li role="presentation"><a href="#trading" aria-controls="trading" role="tab" data-toggle="tab">Trading</a></li>
+                    <li role="presentation"><a href="#market" aria-controls="market" role="tab" data-toggle="tab">Market</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="balance">
+                        <div id="accordion" class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. Balance Query</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+
+                                        <div class="balancequery">
+                                            <input type="hidden" name="method" value="balance.query">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Asset Type</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTC">
+                                            </div>
+                                            <div id="balancequery" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="balancequeryresult alert alert-success"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. Balance Update</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="balanceupdate">
+                                            <input type="hidden" name="method" value="balance.update">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Asset Type (String)</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTC">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Business Type (String)</label>
+                                                <input class="form-control" type="text" name="params[]" value="deposit">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Business_id (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="100">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Change (Integer)</label>
+                                                <input class="form-control" type="text" name="params[]" value="1.2345">
+                                            </div>
+                                            <input type="hidden" name="params[]">
+                                            <div id="balanceupdate" class="btn btn-success">Balance Query</div>
+                                        </div>
+                                        <div class="balanceupdateresult alert alert-success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. Balance History</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="balancehistory">
+                                            <input type="hidden" name="method" value="balance.history">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Asset Type (String)</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTC">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Business Type (String)</label>
+                                                <input class="form-control" type="text" name="params[]" value="deposit">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>start_time (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>end_time (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>offset (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div id="balancehistory" class="btn btn-success">Balance Query</div>
+                                        </div>
+                                        <div class="balancehistoryresult alert alert-success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="trading">
+                        <div id="accordion" class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">1. Order Put Limit</a>
+                                    </h4>
+                                </div>
+                                <div id="collapsefour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <div class="orderput_limit">
+                                            <input type="hidden" name="method" value="order.put_limit">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Side (1.ask 2.bid)</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>amount</label>
+                                                <input class="form-control" type="text" name="params[]" value="10">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>pride</label>
+                                                <input class="form-control" type="text" name="params[]" value="8000">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>taker_fee_rate</label>
+                                                <input class="form-control" type="text" name="params[]" value="0.002">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>maker_fee_rate</label>
+                                                <input class="form-control" type="text" name="params[]" value="0.001">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Source</label>
+                                                <input class="form-control" type="text" name="params[]" value="whatever">
+                                            </div>
+                                            <div id="orderput_limit" class="btn btn-success">Balance Query</div>
+                                        </div>
+                                        <div class="orderput_limitresult alert alert-success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsefive">2. Order Put Market</a>
+                                    </h4>
+                                </div>
+                                <div id="collapsefive" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderput_market">
+                                            <input type="hidden" name="method" value="order.put_market">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Side (1.ask 2.bid)</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>amount</label>
+                                                <input class="form-control" type="text" name="params[]" value="10">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>taker_fee_rate</label>
+                                                <input class="form-control" type="text" name="params[]" value="0.002">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Source</label>
+                                                <input class="form-control" type="text" name="params[]" value="whatever">
+                                            </div>
+                                            <div id="orderput_market" class="btn btn-success">Balance Query</div>
+                                        </div>
+                                        <div class="orderput_marketresult alert alert-success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">3. Order Cancel</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseSix" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="ordercancel">
+                                            <input type="hidden" name="method" value="order.cancel">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Order ID</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div id="ordercancel" class="btn btn-success">Balance Query</div>
+                                        </div>
+                                        <div class="ordercancelresult alert alert-success"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">4. Order Deals</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseSeven" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderdeals">
+                                            <input type="hidden" name="method" value="order.deals">
+                                            <div class="form-group">
+                                                <label>Order ID</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>offset (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div id="orderdeals" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderdealsresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">5. Order Book</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseEight" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderbook">
+                                            <input type="hidden" name="method" value="order.book">
+                                            <div class="form-group">
+
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Side (1.ask 2.bid)</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>offset (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div id="orderbook" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderbookresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine">6. Order Depth</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseNine" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderdepth">
+                                            <input type="hidden" name="method" value="order.depth">
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>interval</label>
+                                                <input class="form-control" type="text" name="params[]" value="1">
+                                            </div>
+                                            <div id="orderdepth" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderdepthresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseten">7. Order Pending</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseten" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderpending">
+                                            <input type="hidden" name="method" value="order.pending">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div id="orderpending" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderpendingresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseeleven">8. Order Pending Details</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseeleven" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderpendingdetails">
+                                            <input type="hidden" name="method" value="order.pending_detail">
+
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Order Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div id="orderpendingdetails" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderpendingdetailsresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsetwif">9. Order finished</a>
+                                    </h4>
+                                </div>
+                                <div id="collapsetwif" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderfinished">
+                                            <input type="hidden" name="method" value="order.finished">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>start_time (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>end_time (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>offset (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Side (1.ask 2.bid)</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div id="orderfinished" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderfinishedresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsethe">10. Order Finish Details</a>
+                                    </h4>
+                                </div>
+                                <div id="collapsethe" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="orderfinished_detail">
+                                            <input type="hidden" name="method" value="order.finished_detail">
+
+                                            <div class="form-group">
+                                                <label>Order Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div id="orderfinished_detail" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="orderfinished_detailresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="market">
+                        <div id="accordion" class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">1. Market Last</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="marketlast">
+                                            <input type="hidden" name="method" value="market.last">
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+
+                                            <div id="marketlast" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="marketlastresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">2. market deals</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="marketdeals">
+                                            <input type="hidden" name="method" value="market.deals">
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                               <div class="form-group">
+                                                <label>last id</label>
+                                                <input class="form-control" type="number" name="params[]" value="10">
+                                            </div>
+                                            <div id="marketdeals" class="btn btn-success">Balance Query</div>
+                                            <br>
+                                            <div class="marketdealsresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">3. Balance History</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="balancehistory">
+                                            <input type="hidden" name="method" value="balance.history">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Asset Type (String)</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTC">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Business Type (String)</label>
+                                                <input class="form-control" type="text" name="params[]" value="deposit">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>start_time (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>end_time (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>offset (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit (Integer)</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            </div>
+                                            <div id="balancehistory" class="btn btn-success">Balance Query</div>
+                                        </div>
+                                        <div class="balancehistoryresult alert alert-success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+        </div>
+    </body>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var url = "http://10.50.1.2:8080/";
+            var id = 0;
+
+            $(".btn").click(function () {
+                id++;
+                name = $(this).attr("id");
+                method = $("." + name + "").find("input[name='method']").val();
+                params = $("." + name + "").find("input[name='params[]']")
+                        .map(function () {
+                            data = $(this).val();
+                            if ($(this).attr('type') == "number")
+                                data = parseFloat(data);
+                            if ($(this).attr('type') == "hidden")
+                                data = {'metadata': null};
+                            return data;
+                        }).get();
+                postdata = JSON.stringify({id: id, method: method, params: params});
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: postdata
+                })
+                        .done(function (data)
+                        {
+                            $("." + name + "result").html("<strong>Result!</strong><br>" + data);
+
+                        });
+
+
+            });
+        });
+
+    </script>
+</html>
