@@ -28,8 +28,6 @@
                                 </div>
                                 <div id="collapseOne" class="panel-collapse collapse">
                                     <div class="panel-body">
-
-
                                         <div class="balancequery">
                                             <input type="hidden" name="method" value="balance.query">
                                             <div class="form-group">
@@ -137,7 +135,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">1. Order Put Limit</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">1. Limit Order</a>
                                     </h4>
                                 </div>
                                 <div id="collapsefour" class="panel-collapse collapse">
@@ -186,7 +184,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsefive">2. Order Put Market</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsefive">2. Market Order</a>
                                     </h4>
                                 </div>
                                 <div id="collapsefive" class="panel-collapse collapse">
@@ -226,7 +224,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">3. Order Cancel</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">3. Cancel Order</a>
                                     </h4>
                                 </div>
                                 <div id="collapseSix" class="panel-collapse collapse">
@@ -251,11 +249,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">4. Order Deals</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">4. Order Transactions</a>
                                     </h4>
                                 </div>
                                 <div id="collapseSeven" class="panel-collapse collapse">
@@ -344,11 +341,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseten">7. Order Pending</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseten">7. Orders Pending</a>
                                     </h4>
                                 </div>
                                 <div id="collapseten" class="panel-collapse collapse">
@@ -378,11 +374,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseeleven">8. Order Pending Details</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseeleven">8. Pending Order Details</a>
                                     </h4>
                                 </div>
                                 <div id="collapseeleven" class="panel-collapse collapse">
@@ -408,7 +403,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsetwif">9. Order finished</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsetwif">9. Orders completed</a>
                                     </h4>
                                 </div>
                                 <div id="collapsetwif" class="panel-collapse collapse">
@@ -453,7 +448,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsethe">10. Order Finish Details</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsethe">10. Order Completed Details</a>
                                     </h4>
                                 </div>
                                 <div id="collapsethe" class="panel-collapse collapse">
@@ -473,14 +468,13 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div role="tabpanel" class="tab-pane" id="market">
                         <div id="accordion" class="panel-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">1. Market Last</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">1. Market Price</a>
                                     </h4>
                                 </div>
                                 <div id="collapse1" class="panel-collapse collapse">
@@ -502,7 +496,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">2. market deals</a>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">2. Market History</a>
                                     </h4>
                                 </div>
                                 <div id="collapse2" class="panel-collapse collapse">
@@ -528,15 +522,121 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">3. User Transaction History</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="usertransactionhistory">
+                                            <input type="hidden" name="method" value="market.user_deals">
+                                            <div class="form-group">
+                                                <label>User Id</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>offset</label>
+                                                <input class="form-control" type="number" name="params[]" value="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>limit</label>
+                                                <input class="form-control" type="number" name="params[]" value="50">
+                                            <div id="usertransactionhistory" class="btn btn-success">Submit</div>
+                                            <br>
+                                            <div class="usertransactionhistoryresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">4. Kline</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse4" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="kline">
+                                            <input type="hidden" name="method" value="market.kline">
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>start time</label>
+                                                <input class="form-control" type="number" name="params[]" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>end time</label>
+                                                <input class="form-control" type="number" name="params[]" value="1507854804">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>interval</label>
+                                                <input class="form-control" type="number" name="params[]" value="3600">
+                                            </div>
+                                            <div id="kline" class="btn btn-success">Submit</div>
+                                            <br>
+                                            <div class="klineresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">5. Market Status</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse5" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="marketstatus">
+                                            <input type="hidden" name="method" value="market.status">
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>period</label>
+                                                <input class="form-control" type="number" name="params[]" value="86400">
+                                            </div>
+                                            <div id="marketstatus" class="btn btn-success">Submit</div>
+                                            <br>
+                                            <div class="marketstatusresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">6. Todays Market Status</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse6" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="marketstatustoday">
+                                            <input type="hidden" name="method" value="market.status_today">
+                                            <div class="form-group">
+                                                <label>Market</label>
+                                                <input class="form-control" type="text" name="params[]" value="BTCCNY">
+                                            </div>
+                                            <div id="marketstatustoday" class="btn btn-success">Submit</div>
+                                            <br>
+                                            <div class="marketstatustodayresult alert alert-success"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
-
-            <br>
-
         </div>
     </body>
 
