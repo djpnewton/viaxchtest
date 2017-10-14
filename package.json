@@ -1,0 +1,37 @@
+{
+  "name": "viaxchtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "animakit-expander": "^2.1.2",
+    "babelify": "^7.3.0",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "react": "^15.6.2",
+    "react-cellblock": "^3.0.4",
+    "react-dom": "^15.6.2",
+    "react-jsonschema-form": "^0.51.0",
+    "react-web-tabs": "^0.4.3",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t [ babelify --presets [ react ] ] src/index.js -o build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djpnewton/viaxchtest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djpnewton/viaxchtest/issues"
+  },
+  "homepage": "https://github.com/djpnewton/viaxchtest#readme"
+}

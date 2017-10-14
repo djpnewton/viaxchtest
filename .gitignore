@@ -1,0 +1,7 @@
+# vim turds
+*~
+*.swp
+*.swo
+
+node_modules
+build/app.js
