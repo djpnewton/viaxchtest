@@ -30,23 +30,21 @@ function call_server(formbox, method, extra) {
     {
         var obj = JSON.parse(data);
         var pretty = JSON.stringify(obj, null, 4);
-        $(formbox).find(".result").html("<strong>Result!</strong><br><pre>" + pretty + "</pre>");
+        $(".result").html("<strong>Result!</strong><br><pre>" + pretty + "</pre>");
     });
 }
 
 class FormBox extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {expanded: false};
         // This binding is necessary to make `this` work in the callback
         this.toggle = this.toggle.bind(this);
         this.submit = this.submit.bind(this);
     }
 
     toggle() {
-        this.setState(prevState => ({
-            expanded: !prevState.expanded
-        }));
+        if ("onToggle" in this.props)
+            this.props.onToggle(this, this.props.id);
     }
 
     submit() {
@@ -67,20 +65,59 @@ class FormBox extends React.Component {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading" style={{cursor: "pointer"}} onClick={this.toggle}>{this.props.title}</div>
-                <AnimakitExpander expanded={this.state.expanded}>
-                    <Grid>
-                        <Row>
-                            <Column width="1/2">
-                                <Form schema={this.props.schema} onSubmit={this.submit}/>
-                            </Column>
-                            <Column width="1/2">
-                                <div className="result">
-                                    results...
-                                </div>
-                            </Column>
-                        </Row>
-                    </Grid>
+                <AnimakitExpander expanded={this.props.expanded}>
+                    <Form schema={this.props.schema} onSubmit={this.submit}/>
                 </AnimakitExpander>
+            </div>
+        );
+    }
+}
+
+class Accordion extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {expanded: []};
+        React.Children.map(this.props.children, (child, i) => {
+            this.state.expanded.push(false);
+        });
+        // This binding is necessary to make `this` work in the callback
+        this.onToggle = this.onToggle.bind(this);
+    }
+
+    isExpanded(i) {
+        return this.state.expanded[i];
+    }
+
+    setExpanded(i, value) {
+        this.state.expanded[i] = value;
+    }
+
+    onToggle(box, id) {
+        if (!box.props.expanded) {
+            React.Children.map(this.props.children, (child, i) => {
+                if (id != i) {
+                    if (this.isExpanded(i))
+                        this.setExpanded(i, false);
+                }
+            });
+            this.setExpanded(id, true);
+        }
+        else
+            this.setExpanded(id, false);
+        this.setState(this.state);
+    }
+
+    render() {
+        const childrenWithProps = React.Children.map(this.props.children,
+            (child, i) => React.cloneElement(child, {
+                id: i,
+                expanded: this.isExpanded(i),
+                onToggle: this.onToggle
+             })
+        );
+        return (
+            <div className="panel-group">
+                {childrenWithProps}
             </div>
         );
     }
@@ -115,14 +152,6 @@ const balance_history_schema = {
       limit: {type: "integer", title: "Limit", default: 50}
   }
 };
-
-const BalanceApis = () => (
-    <div className="panel-group">
-        <FormBox title="Balance Query" method="balance.query" schema={balance_query_schema}/>
-        <FormBox title="Balance Update" method="balance.update" schema={balance_update_schema} extra={{}}/>
-        <FormBox title="Balance History" method="balance.history" schema={balance_history_schema}/>
-    </div>
-);
 
 const order_put_limit = {
   type: "object",
@@ -216,21 +245,6 @@ const order_completed_details = {
   }
 };
 
-const TradingApis = () => (
-    <div className="panel-group">
-        <FormBox title="Limit Order" method="order.put_limit" schema={order_put_limit}/>
-        <FormBox title="Market Order" method="order.put_market" schema={order_put_market}/>
-        <FormBox title="Cancel Order" method="order.cancel" schema={order_cancel}/>
-        <FormBox title="Order Transactions" method="order.deals" schema={order_transactions}/>
-        <FormBox title="Order Book" method="order.book" schema={order_book}/>
-        <FormBox title="Order Depth" method="order.depth" schema={order_depth}/>
-        <FormBox title="Orders Pending" method="order.pending" schema={orders_pending}/>
-        <FormBox title="Order Pending Details" method="order.pending_detail" schema={order_pending_details}/>
-        <FormBox title="Orders Completed" method="order.finished" schema={orders_completed}/>
-        <FormBox title="Order Completed Details" method="order.finished_detail" schema={order_completed_details}/>
-    </div>
-);
-
 const market_price = {
   type: "object",
   properties: {
@@ -277,33 +291,57 @@ const market_status_today = {
   }
 };
 
-const MarketApis = () => (
-    <div className="panel-group">
-        <FormBox title="Market Price" method="market.last" schema={market_price}/>
-        <FormBox title="Market History" method="market.deals" schema={market_history}/>
-        <FormBox title="User Transaction History" method="market.user_deals" schema={user_transaction_history}/>
-        <FormBox title="Kline" method="market.kline" schema={kline}/>
-        <FormBox title="Market Status" method="market.status" schema={market_status}/>
-        <FormBox title="Todays Market Status" method="market.status_today" schema={market_status_today}/>
-    </div>
+const tabs = (
+<Grid>
+    <Row>
+        <Column width="1/2">
+            <Tabs>
+            <TabList>
+              <Tab tabFor="balance">Balance</Tab>
+              <Tab tabFor="trading">Trading</Tab>
+              <Tab tabFor="market">Market</Tab>
+            </TabList>
+            <TabPanel tabId="balance">
+              <Accordion>
+                <FormBox title="Balance Query" method="balance.query" schema={balance_query_schema}/>
+                <FormBox title="Balance Update" method="balance.update" schema={balance_update_schema} extra={{}}/>
+                <FormBox title="Balance History" method="balance.history" schema={balance_history_schema}/>
+              </Accordion>
+            </TabPanel>
+            <TabPanel tabId="trading">
+              <Accordion>
+                <FormBox title="Limit Order" method="order.put_limit" schema={order_put_limit}/>
+                <FormBox title="Market Order" method="order.put_market" schema={order_put_market}/>
+                <FormBox title="Cancel Order" method="order.cancel" schema={order_cancel}/>
+                <FormBox title="Order Transactions" method="order.deals" schema={order_transactions}/>
+                <FormBox title="Order Book" method="order.book" schema={order_book}/>
+                <FormBox title="Order Depth" method="order.depth" schema={order_depth}/>
+                <FormBox title="Orders Pending" method="order.pending" schema={orders_pending}/>
+                <FormBox title="Order Pending Details" method="order.pending_detail" schema={order_pending_details}/>
+                <FormBox title="Orders Completed" method="order.finished" schema={orders_completed}/>
+                <FormBox title="Order Completed Details" method="order.finished_detail" schema={order_completed_details}/>
+              </Accordion>
+            </TabPanel>
+            <TabPanel tabId="market">
+              <Accordion>
+                <FormBox title="Market Price" method="market.last" schema={market_price}/>
+                <FormBox title="Market History" method="market.deals" schema={market_history}/>
+                <FormBox title="User Transaction History" method="market.user_deals" schema={user_transaction_history}/>
+                <FormBox title="Kline" method="market.kline" schema={kline}/>
+                <FormBox title="Market Status" method="market.status" schema={market_status}/>
+                <FormBox title="Todays Market Status" method="market.status_today" schema={market_status_today}/>
+              </Accordion>
+            </TabPanel>
+            </Tabs>
+        </Column>
+        <Column width="1/2">
+            <div className="result">
+                results...
+            </div>
+        </Column>
+    </Row>
+</Grid>
 );
-
-const tabs = (<Tabs>
-    <TabList>
-      <Tab tabFor="balance">Balance</Tab>
-      <Tab tabFor="trading">Trading</Tab>
-      <Tab tabFor="market">Market</Tab>
-    </TabList>
-    <TabPanel tabId="balance">
-      <BalanceApis/>
-    </TabPanel>
-    <TabPanel tabId="trading">
-      <TradingApis/>
-    </TabPanel>
-    <TabPanel tabId="market">
-      <MarketApis/>
-    </TabPanel>
-</Tabs>);
 ReactDOM.render(
   tabs,
   document.getElementById('root')
