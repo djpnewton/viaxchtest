@@ -127,14 +127,14 @@ const balance_query_schema = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      asset: {type: "string", title: "Asset Type", default: "BTC"}
+      asset: {type: "array", title: "Assets", items: { type: "string", default: "BTC"}}
   }
 };
 const balance_update_schema = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      asset: {type: "string", title: "Asset Type", default: "BTC"},
+      asset: {type: "string", title: "Asset", default: "BTC"},
       business_type: {type: "string", title: "Business Type", default: "deposit"},
       business_id: {type: "integer", title: "Business Id", default: 1},
       change: {type: "number", title: "Change", default: 1.5}
@@ -144,7 +144,7 @@ const balance_history_schema = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      asset: {type: "string", title: "Asset Type", default: "BTC"},
+      asset: {type: "string", title: "Asset", default: "BTC"},
       business_type: {type: "string", title: "Business Type", default: "deposit"},
       start_time: {type: "integer", title: "Start Time", default: 0},
       end_time: {type: "integer", title: "End Time", default: 0},
