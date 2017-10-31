@@ -7,6 +7,7 @@ import Form from "react-jsonschema-form";
 import {Grid, Row, Column} from 'react-cellblock';
 
 var url = "http://10.50.1.2:8080";
+var ws_url = "ws://10.50.1.2:8090";
 var call_id = 0;
 function call_server(formbox, method, extra) {
     call_id++;
@@ -34,6 +35,25 @@ function call_server(formbox, method, extra) {
     });
 }
 
+function call_ws_server(formbox, method) {
+    call_id++;
+    var sock = new WebSocket(ws_url);
+    sock.onopen = function (event) {
+        console.log("opened ws");
+        var msg = JSON.stringify({id: call_id, method: method, params: []});
+        sock.send(msg);
+    };
+    sock.onmessage = function (event) {
+        console.log(event.data);
+    };
+    sock.onerror = function(event) {
+        console.log("ws error (" + event + ")");
+    };
+    sock.onclose = function(event) {
+        console.log("ws closed (" + event.code + ")");
+    };
+}
+
 class FormBox extends React.Component {
     constructor(props) {
         super(props);
@@ -48,17 +68,10 @@ class FormBox extends React.Component {
     }
 
     submit() {
-        var seen = [];
-        var replacer = function(key, value) {
-          if (value != null && typeof value == "object") {
-            if (seen.indexOf(value) >= 0) {
-              return;
-            }
-            seen.push(value);
-          }
-          return value;
-        };
-        call_server(ReactDOM.findDOMNode(this), this.props.method, this.props.extra);
+        if ("ws_method" in this.props)
+            call_ws_server(ReactDOM.findDOMNode(this), this.props.ws_method);
+        else
+            call_server(ReactDOM.findDOMNode(this), this.props.method, this.props.extra);
     }
 
     render() {
@@ -122,6 +135,11 @@ class Accordion extends React.Component {
         );
     }
 }
+
+const null_schema = {
+  type: "object",
+  properties: {}
+};
 
 const balance_query_schema = {
   type: "object",
@@ -300,6 +318,7 @@ const tabs = (
               <Tab tabFor="balance">Balance</Tab>
               <Tab tabFor="trading">Trading</Tab>
               <Tab tabFor="market">Market</Tab>
+              <Tab tabFor="websocket">Websocket</Tab>
             </TabList>
             <TabPanel tabId="balance">
               <Accordion>
@@ -330,6 +349,11 @@ const tabs = (
                 <FormBox title="Kline" method="market.kline" schema={kline}/>
                 <FormBox title="Market Status" method="market.status" schema={market_status}/>
                 <FormBox title="Todays Market Status" method="market.status_today" schema={market_status_today}/>
+              </Accordion>
+            </TabPanel>
+            <TabPanel tabId="websocket">
+              <Accordion>
+                <FormBox title="Ping" ws_method="server.ping" schema={null_schema}/>
               </Accordion>
             </TabPanel>
             </Tabs>
