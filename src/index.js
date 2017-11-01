@@ -9,14 +9,20 @@ import {Grid, Row, Column} from 'react-cellblock';
 var url = "http://10.50.1.2:8080";
 var ws_url = "ws://10.50.1.2:8090";
 var call_id = 0;
-function call_server(formbox, method, extra) {
-    call_id++;
-    var params = $(formbox).find("input, select").map(function () {
+var sock = null;
+
+function gather_params(formbox) {
+    return $(formbox).find("input, select").map(function () {
         var data = $(this).val();
         if ($(this).parent().hasClass("field-integer"))
             data = parseInt(data);
         return data;
     }).get();
+}
+
+function call_server(formbox, method, extra) {
+    call_id++;
+    var params = gather_params(formbox);
     if (typeof extra !== 'undefined')
         params.push(extra);
     console.log(method);
@@ -35,23 +41,45 @@ function call_server(formbox, method, extra) {
     });
 }
 
-function call_ws_server(formbox, method) {
-    call_id++;
-    var sock = new WebSocket(ws_url);
+function start_ws(onready, onmessage) {
+    var created_sock = false;
+    if (sock == null || sock.readyState != 1) {
+        sock = new WebSocket(ws_url);
+        created_sock = true;
+    }
     sock.onopen = function (event) {
-        console.log("opened ws");
-        var msg = JSON.stringify({id: call_id, method: method, params: []});
-        sock.send(msg);
+        console.log("opened ws to '" + ws_url + "'");
+        onready(sock);
     };
-    sock.onmessage = function (event) {
-        console.log(event.data);
-    };
+    sock.onmessage = function(event) {
+        onmessage(sock, event.data);
+    }
     sock.onerror = function(event) {
         console.log("ws error (" + event + ")");
     };
     sock.onclose = function(event) {
         console.log("ws closed (" + event.code + ")");
     };
+    if (!created_sock)
+        onready(sock);
+}
+
+function call_ws_server(formbox, method) {
+    call_id++;
+    var params = gather_params(formbox);
+    console.log(method);
+    console.log(params);
+    start_ws(
+        function (sock) {
+            var msg = JSON.stringify({id: call_id, method: method, params: params});
+            sock.send(msg);
+        },
+        function (sock, data) {
+            var obj = JSON.parse(data);
+            var pretty = JSON.stringify(obj, null, 4);
+            $(".result").html("<strong>Result!</strong><br><pre>" + pretty + "</pre>");
+        }
+    );
 }
 
 class FormBox extends React.Component {
@@ -140,7 +168,6 @@ const null_schema = {
   type: "object",
   properties: {}
 };
-
 const balance_query_schema = {
   type: "object",
   properties: {
@@ -308,6 +335,14 @@ const market_status_today = {
       market: {type: "string", title: "Market", default: "BTCCNY"},
   }
 };
+const ws_auth_schema = {
+  type: "object",
+  properties: {
+      token: {type: "string", title: "Token", default: ""},
+      source: {type: "string", title: "Source", default: ""}
+  }
+};
+
 
 const tabs = (
 <Grid>
@@ -354,6 +389,8 @@ const tabs = (
             <TabPanel tabId="websocket">
               <Accordion>
                 <FormBox title="Ping" ws_method="server.ping" schema={null_schema}/>
+                <FormBox title="Time" ws_method="server.time" schema={null_schema}/>
+                <FormBox title="Auth" ws_method="server.auth" schema={ws_auth_schema}/>
               </Accordion>
             </TabPanel>
             </Tabs>
