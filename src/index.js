@@ -338,8 +338,115 @@ const market_status_today = {
 const ws_auth_schema = {
   type: "object",
   properties: {
-      token: {type: "string", title: "Token", default: ""},
-      source: {type: "string", title: "Source", default: ""}
+      token: {type: "string", title: "Token", default: "<AUTH_TOKEN>"},
+      source: {type: "string", title: "Source", default: ""},
+  }
+};
+const ws_kline_query_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      start: {type: "integer", title: "Start", default: 1},
+      end: {type: "integer", title: "End", default: 120000000},
+      interval: {type: "integer", title: "Interval", default: 3600},
+  }
+};
+const ws_kline_subscribe_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      interval: {type: "integer", title: "Interval", default: 3600},
+  }
+};
+const ws_price_query_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+  }
+};
+const ws_price_subscribe_schema = {
+  type: "object",
+  properties: {
+      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCCNY"}}
+  }
+};
+const ws_today_query_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+  }
+};
+const ws_today_subscribe_schema = {
+  type: "object",
+  properties: {
+      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCCNY"}}
+  }
+};
+const ws_deals_query_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      limit: {type: "integer", title: "Limit", default: 50},
+      last_id: {type: "integer", title: "Last ID", default: 0},
+  }
+};
+const ws_deals_subscribe_schema = {
+  type: "object",
+  properties: {
+      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCCNY"}}
+  }
+};
+const ws_depth_query_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      limit: {type: "integer", title: "Limit", default: 50},
+      interval: {type: "string", title: "Interval", default: "0"},
+  }
+};
+const ws_depth_subscribe_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      limit: {type: "integer", title: "Limit", default: 50},
+      interval: {type: "string", title: "Interval", default: "0"},
+  }
+};
+const ws_order_query_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      offset: {type: "integer", title: "Offset", default: 0},
+      limit: {type: "integer", title: "Limit", default: 50},
+  }
+};
+const ws_order_history_schema = {
+  type: "object",
+  properties: {
+      market: {type: "string", title: "Market", default: "BTCCNY"},
+      start_time: {type: "integer", title: "Start Time", default: 0},
+      end_time: {type: "integer", title: "End Time", default: 0},
+      offset: {type: "integer", title: "Offset", default: 0},
+      limit: {type: "integer", title: "Limit", default: 50},
+      //side: {type: "integer", title: "Side (0 - all, 1 - ask, 2 - bid)", default: 0},
+  }
+};
+const ws_asset_query_schema = {
+  type: "object",
+  properties: {
+      asset: {type: "array", title: "Assets", items: { type: "string", default: "BTC"}}
+  }
+};
+const ws_asset_history_schema = {
+  type: "object",
+  properties: {
+      asset: {type: "string", title: "Asset", default: "BTC"},
+      //business: {type: "array", title: "Business", items: { type: "string", default: "deposit"}},
+      business: {type: "string", title: "Business", default: ""},
+      start_time: {type: "integer", title: "Start Time", default: 0},
+      end_time: {type: "integer", title: "End Time", default: 0},
+      offset: {type: "integer", title: "Offset", default: 0},
+      limit: {type: "integer", title: "Limit", default: 50},
   }
 };
 
@@ -354,6 +461,7 @@ const tabs = (
               <Tab tabFor="trading">Trading</Tab>
               <Tab tabFor="market">Market</Tab>
               <Tab tabFor="websocket">Websocket</Tab>
+              <Tab tabFor="websocket_auth">Websocket Auth</Tab>
             </TabList>
             <TabPanel tabId="balance">
               <Accordion>
@@ -390,7 +498,34 @@ const tabs = (
               <Accordion>
                 <FormBox title="Ping" ws_method="server.ping" schema={null_schema}/>
                 <FormBox title="Time" ws_method="server.time" schema={null_schema}/>
+                <FormBox title="Kline Query" ws_method="kline.query" schema={ws_kline_query_schema}/>
+                <FormBox title="Kline Subscribe" ws_method="kline.subscribe" schema={ws_kline_subscribe_schema}/>
+                <FormBox title="Kline Unsubscribe" ws_method="kline.unsubscribe" schema={null_schema}/>
+                <FormBox title="Price Query" ws_method="price.query" schema={ws_price_query_schema}/>
+                <FormBox title="Price Subscribe" ws_method="price.subscribe" schema={ws_price_subscribe_schema}/>
+                <FormBox title="Price Unsubscribe" ws_method="price.unsubscribe" schema={null_schema}/>
+                <FormBox title="Todays Market Query" ws_method="today.query" schema={ws_today_query_schema}/>
+                <FormBox title="Todays Market Subscribe" ws_method="today.subscribe" schema={ws_today_subscribe_schema}/>
+                <FormBox title="Todays Market Unsubscribe" ws_method="today.unsubscribe" schema={null_schema}/>
+                <FormBox title="Transactions Query" ws_method="deals.query" schema={ws_deals_query_schema}/>
+                <FormBox title="Transactions Subscribe" ws_method="deals.subscribe" schema={ws_deals_subscribe_schema}/>
+                <FormBox title="Transactions Unsubscribe" ws_method="deals.unsubscribe" schema={null_schema}/>
+                <FormBox title="Depth Query" ws_method="depth.query" schema={ws_depth_query_schema}/>
+                <FormBox title="Depth Subscribe" ws_method="depth.subscribe" schema={ws_depth_subscribe_schema}/>
+                <FormBox title="Depth Unsubscribe" ws_method="depth.unsubscribe" schema={null_schema}/>
+              </Accordion>
+            </TabPanel>
+            <TabPanel tabId="websocket_auth">
+              <Accordion>
                 <FormBox title="Auth" ws_method="server.auth" schema={ws_auth_schema}/>
+                <FormBox title="Pending Order Query" ws_method="order.query" schema={ws_order_query_schema}/>
+                <FormBox title="Order History" ws_method="order.history" schema={ws_order_history_schema}/>
+                <FormBox title="Order Subscribe" ws_method="order.subscribe" schema={null_schema}/>
+                <FormBox title="Order Unsubscribe" ws_method="order.unsubscribe" schema={null_schema}/>
+                <FormBox title="Asset Query" ws_method="asset.query" schema={ws_asset_query_schema}/>
+                <FormBox title="Asset History" ws_method="asset.history" schema={ws_asset_history_schema}/>
+                <FormBox title="Asset Subscribe" ws_method="asset.subscribe" schema={null_schema}/>
+                <FormBox title="Asset Unsubscribe" ws_method="asset.unsubscribe" schema={null_schema}/>
               </Accordion>
             </TabPanel>
             </Tabs>
