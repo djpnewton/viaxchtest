@@ -342,6 +342,14 @@ const ws_auth_schema = {
       source: {type: "string", title: "Source", default: ""},
   }
 };
+const ws_sign_schema = {
+  type: "object",
+  properties: {
+      access_id: {type: "string", title: "Access ID", default: "<ACCESS_ID>"},
+      authorization: {type: "string", title: "Authorisation", default: "<AUTHORISATION>"},
+      tonce: {type: "integer", title: "Tonce", default: 1},
+  }
+};
 const ws_kline_query_schema = {
   type: "object",
   properties: {
@@ -457,12 +465,21 @@ const tabs = (
         <Column width="1/2">
             <Tabs>
             <TabList>
+              <Tab tabFor="general">General</Tab>
               <Tab tabFor="balance">Balance</Tab>
               <Tab tabFor="trading">Trading</Tab>
               <Tab tabFor="market">Market</Tab>
               <Tab tabFor="websocket">Websocket</Tab>
               <Tab tabFor="websocket_auth">Websocket Auth</Tab>
             </TabList>
+            <TabPanel tabId="general">
+              <Accordion>
+                <FormBox title="Asset List" method="asset.list" schema={null_schema}/>
+                <FormBox title="Asset Summary" method="asset.summary" schema={null_schema}/>
+                <FormBox title="Market List" method="market.list" schema={null_schema}/>
+                <FormBox title="Market Summary" method="market.summary" schema={null_schema}/>
+              </Accordion>
+            </TabPanel>
             <TabPanel tabId="balance">
               <Accordion>
                 <FormBox title="Balance Query" method="balance.query" schema={balance_query_schema}/>
@@ -518,6 +535,7 @@ const tabs = (
             <TabPanel tabId="websocket_auth">
               <Accordion>
                 <FormBox title="Auth" ws_method="server.auth" schema={ws_auth_schema}/>
+                <FormBox title="Sign" ws_method="server.sign" schema={ws_sign_schema}/>
                 <FormBox title="Pending Order Query" ws_method="order.query" schema={ws_order_query_schema}/>
                 <FormBox title="Order History" ws_method="order.history" schema={ws_order_history_schema}/>
                 <FormBox title="Order Subscribe" ws_method="order.subscribe" schema={null_schema}/>
