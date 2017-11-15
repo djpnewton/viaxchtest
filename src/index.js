@@ -202,7 +202,7 @@ const order_put_limit = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       side: {type: "integer", title: "Side (1 ask, 2 bid)", enum: [1, 2], enumNames: ["Ask", "Bid"], default: 2},
       amount: {type: "number", title: "Amount", default: 1},
       price: {type: "number", title: "Price", default: 8000},
@@ -215,7 +215,7 @@ const order_put_market = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       side: {type: "integer", title: "Side (1 ask, 2 bid)", enum: [1, 2], enumNames: ["Ask", "Bid"], default: 2},
       amount: {type: "number", title: "Amount", default: 1},
       taker_fee_rate: {type: "number", title: "Taker Fee Rate", default: 0.002},
@@ -226,7 +226,7 @@ const order_cancel = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       order_id: {type: "integer", title: "Order Id", default: 1},
   }
 };
@@ -241,7 +241,7 @@ const order_transactions = {
 const order_book = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       side: {type: "integer", title: "Side (1 ask, 2 bid)", enum: [1, 2], enumNames: ["Ask", "Bid"], default: 2},
       offset: {type: "integer", title: "Offset", default: 0},
       limit: {type: "integer", title: "Limit", default: 50},
@@ -250,7 +250,7 @@ const order_book = {
 const order_depth = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       limit: {type: "integer", title: "Limit", default: 50},
       interval: {type: "string", title: "Interval", default: "1"},
   }
@@ -259,7 +259,7 @@ const orders_pending = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       offset: {type: "integer", title: "Offset", default: 0},
       limit: {type: "integer", title: "Limit", default: 50},
   }
@@ -267,7 +267,7 @@ const orders_pending = {
 const order_pending_details = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       order_id: {type: "integer", title: "Order Id", default: 1},
   }
 };
@@ -275,7 +275,7 @@ const orders_completed = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       start_time: {type: "integer", title: "Start Time", default: 1},
       end_time: {type: "integer", title: "End Time", default: 120000000},
       offset: {type: "integer", title: "Offset", default: 0},
@@ -293,13 +293,13 @@ const order_completed_details = {
 const market_price = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
   }
 };
 const market_history = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       limit: {type: "integer", title: "Limit", default: 50},
       last_id: {type: "integer", title: "Last Id", default: 0},
   }
@@ -308,7 +308,7 @@ const user_transaction_history = {
   type: "object",
   properties: {
       user_id: {type: "integer", title: "User Id", default: 1},
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       offset: {type: "integer", title: "Offset", default: 0},
       limit: {type: "integer", title: "Limit", default: 50},
   }
@@ -316,7 +316,7 @@ const user_transaction_history = {
 const kline = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       start_time: {type: "integer", title: "Start Time", default: 1},
       end_time: {type: "integer", title: "End Time", default: 12000000},
       interval: {type: "integer", title: "Interval", default: 3600},
@@ -325,14 +325,14 @@ const kline = {
 const market_status = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       period: {type: "integer", title: "Period", default: 86400},
   }
 };
 const market_status_today = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
   }
 };
 const ws_auth_schema = {
@@ -353,7 +353,7 @@ const ws_sign_schema = {
 const ws_kline_query_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       start: {type: "integer", title: "Start", default: 1},
       end: {type: "integer", title: "End", default: 120000000},
       interval: {type: "integer", title: "Interval", default: 3600},
@@ -362,38 +362,38 @@ const ws_kline_query_schema = {
 const ws_kline_subscribe_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       interval: {type: "integer", title: "Interval", default: 3600},
   }
 };
 const ws_price_query_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
   }
 };
 const ws_price_subscribe_schema = {
   type: "object",
   properties: {
-      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCCNY"}}
+      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCUSD"}}
   }
 };
 const ws_today_query_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
   }
 };
 const ws_today_subscribe_schema = {
   type: "object",
   properties: {
-      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCCNY"}}
+      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCUSD"}}
   }
 };
 const ws_deals_query_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       limit: {type: "integer", title: "Limit", default: 50},
       last_id: {type: "integer", title: "Last ID", default: 0},
   }
@@ -401,13 +401,13 @@ const ws_deals_query_schema = {
 const ws_deals_subscribe_schema = {
   type: "object",
   properties: {
-      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCCNY"}}
+      markets: {type: "array", title: "Markets", items: { type: "string", default: "BTCUSD"}}
   }
 };
 const ws_depth_query_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       limit: {type: "integer", title: "Limit", default: 50},
       interval: {type: "string", title: "Interval", default: "0"},
   }
@@ -415,7 +415,7 @@ const ws_depth_query_schema = {
 const ws_depth_subscribe_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       limit: {type: "integer", title: "Limit", default: 50},
       interval: {type: "string", title: "Interval", default: "0"},
   }
@@ -423,7 +423,7 @@ const ws_depth_subscribe_schema = {
 const ws_order_query_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       offset: {type: "integer", title: "Offset", default: 0},
       limit: {type: "integer", title: "Limit", default: 50},
   }
@@ -431,7 +431,7 @@ const ws_order_query_schema = {
 const ws_order_history_schema = {
   type: "object",
   properties: {
-      market: {type: "string", title: "Market", default: "BTCCNY"},
+      market: {type: "string", title: "Market", default: "BTCUSD"},
       start_time: {type: "integer", title: "Start Time", default: 0},
       end_time: {type: "integer", title: "End Time", default: 0},
       offset: {type: "integer", title: "Offset", default: 0},
